@@ -24,15 +24,15 @@ hamtaVarde = (id) ->
 	if isNaN(value) then 0 else value
 
 berakna = ->
-	2 * hamtaVarde("ronder") * hamtaVarde("minuter") / hamtaVarde("avgift")
+	hamtaVarde("avgift") / (2 * hamtaVarde("ronder") * hamtaVarde("minuter") / 60)
 
 bygnadDom = ->
 	body = document.body
 	body.textContent = ""
 
 	panel = Koppla "div", body, class: "panel"
-	Koppla "h1", panel, text: "Beräkna antal minuter per krona"
-	Koppla "p", panel, text: "Mata in avgift, antal ronder samt betänketid för olika klubbar och turneringar."
+	Koppla "h1", panel, text: "Beräkna antal kronor per timme"
+	Koppla "p", panel, text: "Mata in avgift, antal ronder samt betänketid för olika klubbar och turneringar. Genom att räkna med blixt, snabb och lagaktiviteter samt tänka längre kan du sänka kostnaden ytterligare."
 
 	skapaRad = (labelText, inputId, value) ->
 		row = Koppla "div", panel, class: "row"
@@ -44,7 +44,7 @@ bygnadDom = ->
 	skapaRad "Betänketid i minuter (90 + 30 => 120)", "minuter", 120
 
 	result = Koppla "div", panel, class: "result"
-	result.textContent = "Minuter per krona: "
+	result.textContent = "Kronor per timme: "
 	Koppla "span", result, id: "resultat", text: "0"
 
 init = ->
@@ -52,7 +52,7 @@ init = ->
 
 	uppdateraSumma = ->
 		total = berakna()
-		hitta("resultat").textContent = total.toFixed 0
+		hitta("resultat").textContent = total.toFixed 2
 
 	for id in falt
 		hitta(id).addEventListener "input", uppdateraSumma
