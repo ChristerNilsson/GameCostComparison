@@ -28,25 +28,24 @@ bygnadDom = ->
 	skapaRad = (labelText, inputId, value) ->
 		row = Koppla "div", panel, class: "row"
 		label = Koppla "label", row, for: inputId, text: labelText
-		Koppla "input", label, id: inputId, type: "number", value: value
+		Koppla "input", label, id: inputId, value: value, type: "number"
 
 	avgift = skapaRad "Avgift i kronor", "avgift", 800
 	ronder = skapaRad "Antal ronder", "ronder", 40
 	minuter = skapaRad "Betänketid i minuter (90 + 30 => 120)", "minuter", 120
 
-	result = Koppla "div", panel, class: "result"
-	result.textContent = "Kronor per timme: "
+	result = Koppla "div", panel, class: "result", text: "Kronor per timme: "
 	resultat = Koppla "span", result, id: "resultat", text: "0"
 
 init = ->
 	bygnadDom()
 
-	uppdateraSumma = -> resultat.textContent = berakna().toFixed 2
+	uppdatera = -> resultat.textContent = berakna().toFixed 2
 
-	avgift.addEventListener "input", uppdateraSumma
-	ronder.addEventListener "input", uppdateraSumma
-	minuter.addEventListener "input", uppdateraSumma
+	avgift.addEventListener "input", uppdatera
+	ronder.addEventListener "input", uppdatera
+	minuter.addEventListener "input", uppdatera
 
-	uppdateraSumma()
+	uppdatera()
 
 init()
